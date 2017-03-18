@@ -1,0 +1,45 @@
+\documentclass[12pt]{scrartcl}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+
+\begin{document}
+		
+\title{Exercise Sheet A}
+\subtitle{Machine Learning SS 2017}
+\author{Gregor Bankhamer \and Wolfgang Kremser}
+\date{}
+\maketitle
+
+%======================= END HEADER ======================
+
+\section*{Exercise 1}
+
+\section*{Exercise 2}
+A boolean input $x_i$ can have 2 possible values. We have 4 boolean inputs, giving $2^4$ input variations. Since the function map to boolean values, we again have 2 possible outputs for each function. \\
+This results in a total of $2^{2^4} = 65536$ functions that map 4 boolean inputs to 1 boolean output. The number of functions we have to consider increases exponentially with the number of input variables.
+
+\section*{Exercise 3}
+%Slide 37
+We show: 
+\begin{equation*}
+\mathbb{E}_{S|_x \sim D^m}[L_S(h)]  = L_{(D,f)}(h)
+\end{equation*}
+
+\begin{proof}
+	\begin{equation*}
+		\begin{aligned}
+			\mathbb{E}_{S|_x \sim D^m}[L_S(h)]  & = \frac{1}{m} \cdot \mathbb{E}_{S|_x \sim D^m}\left[\sum_{i=1}^{m} 1_{h(x_i)\neq f(x_i)}\right] & \text{(linearity)} \\
+												& = \frac{1}{m} \cdot \mathbb{E}_{S|_x \sim D^m}\left[\sum_{i=1}^{m} 1_{h(x)\neq f(x)}\right] & \text{(i.d.d.)} \\
+												& = m \cdot \frac{1}{m} \cdot \mathbb{E}_{S|_x \sim D^m}\left[1_{h(x_i)\neq f(x_i)}\right]  & \text{(sum of constants)} \\
+												& = \mathbb{E}_{S|_x \sim D^m}\left[1_{h(x_i)\neq f(x_i)}\right] & \\
+												& = L_{(D,f)}(h)
+		\end{aligned}
+	\end{equation*}
+\end{proof}
+
+\section*{Exercise 4}
+
+\section*{Exercise 5}
+
+	
+\end{document}

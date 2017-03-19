@@ -25,14 +25,14 @@ by using Chebychev's inequality
 \end{equation*}
 \\
 $X = X_1 + X_2 + ... + X_{10}$ with $X_i$ independent and uniformly distributed over 1 to 6.\\
-$\mu_{X_i} = \frac{1+6}{2} = 3.5$ and $\sigma^2_{X_i} = \frac{(6-1)^2}{12} = \frac{25}{12} = 2.083$\\
+$\mu_{X_i} = \frac{1+6}{2} = 3.5$ and $\sigma^2_{X_i} = \frac{(6-1+1)^2-1}{12} = \frac{35}{12} = 2.917$\\
 
-\noindent Because $X_i$ are i.d.d, $\mathbb{E}[X] = \sum \mu_{X_i} = 35$ and $\mathbb{V}[X_i] = \sum \sigma^2_{X_i} = 20.83$\\
+\noindent Because $X_i$ are i.d.d, $\mathbb{E}[X] = \sum \mu_{X_i} = 35$ and $\mathbb{V}[X_i] = \sum \sigma^2_{X_i} = 29.17$\\
 \\
 Plugging the values into Chebychev's inequality with $a=10$ we get
 \begin{equation*} 
 \begin{aligned}
-\mathbb{P}[|Z - 35| \geq 10] \leq \frac{20.83}{10^2} = 0.208
+\mathbb{P}[|Z - 35| \geq 10] \leq \frac{29.17}{10^2} = 0.291
 \end{aligned}
 \end{equation*}
 

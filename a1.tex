@@ -13,7 +13,8 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \renewcommand\headrule{}
-\fancyhead[L]{Gregor Bankhamer 1220843}
+\fancyhead[L]{Gregor Bankhamer 1220843 Wolfgang Kremser 1222223}
+\fancyhead[R]{Sheet A}
 
 \newcommand{\RN}[1]{%
   \textup{\uppercase\expandafter{\romannumeral#1}}%
@@ -36,9 +37,9 @@ Let $X_i$ be a random variable that denotes the result of the $i$-th roll, for $
 \end{align*}
 Now let $X$ be a random variable that denotes sum of these 10 independent dice rolls, therefore $X = \sum X_i$. Since the $X_i$ are i.i.d it follows
 \begin{equation*}
-	Var(X) = Var(\sum_{i=1}^{10} X_i) = 10 \cdot Var(X_i) = 10 \cdot \frac{35}{12} = \frac{175}{6}
+	Var(X) = Var \left( \sum_{i=1}^{10} X_i \right) \overset{\text{i.i.d}}{=} 10 \cdot Var(X_i) = 10 \cdot \frac{35}{12} = \frac{175}{6}
 \end{equation*}
-Now we use Chebychev's inequality for $k=10$ which yields
+Now we use Chebychev's inequality for $a=10$ which yields
 \begin{equation*}
 	Pr[|X - \mu| \geq 10] \leq \frac{Var(X)}{100} = \frac{175}{600} = \frac{7}{24} \approx 0.292
 \end{equation*}
@@ -48,13 +49,13 @@ Consider the function $f(x_1,x_2,x_3,x_4)$ with $f: \{0,1\}^4 \rightarrow \{0,1\
 Therefore we have $2^4$ possible inputs $(x_1,x_2,x_3,x_4)$ that each are mapped to either $0$ or $1$. \\
 Changing these image values between 0 and 1 results into creating different functions. As we have again 2 possible image values we get
 \begin{equation*}
-	2^{2^4} = 2^{16} = 65,536
+	2^{\left( 2^4 \right)} = 2^{16} = 65,536
 \end{equation*}
-possible functions. Generailizing this result to functions  $f: \{0,1\}^n \rightarrow \{0,1\}$ yields
+possible functions. Generalizing this result to functions  $f: \{0,1\}^n \rightarrow \{0,1\}$ yields
 \begin{equation*}
-	2^{2^n}
+	2^{\left( 2^n \right)}
 \end{equation*}
-The problem is that the search space for the real functions is very big. Simply brute-forcing all or even most possible functions for finding an optimal one is too time consuming.
+The problem is that the search space for the optimal function is very big. Simply brute-forcing all or even most possible functions for finding an optimal one is too time consuming. \\Also there are a lot of functions that produce the same results as the labeling function on the training set while causing error when exposed to general data.
 
 \section*{Exercise 3}
 Let $S,h,f,S|_x, \mathcal{D},m $ be defined as in the specification. Then

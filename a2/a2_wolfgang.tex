@@ -27,12 +27,16 @@
 
 \section*{Exercise 5}
 
-When searching 
+Under the assumption of realizability, the error we can make is bound between the tightest circle that encloses all equally labeled samples and the circle which is just before the first differently labeled sample. The annulus of these circles is colored red in the figure. Somewhere on that annulus lies the circle which represents the true labeling function $f$.
+\\ \\
+Let $f$ have radius $r_f$. We chose a circle $h$ which represents a hypothesis with the smallest radius $r_h$ such that $P(r_h \leq ||x|| \leq r_f) < \epsilon$. Now, let A be all radii between $r_h$ and $r_s$, i.e $A := \{x : r_h \leq ||x|| \leq r_s\}$. By definition of $r_h$, $P(x \in A) \geq \epsilon$.
+\\ \\
+Therefore, the chance to not make an error greater than $\epsilon$ is $P(x \notin A) \le (1 - \epsilon)$. For $m$ samples we have the chance of $(1-\epsilon)^m \leq e^{-m\epsilon} \geq \delta$, leading to $m \geq \frac{1}{\epsilon} log(\frac{1}{\delta})$
+
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{Bild1}
-	\caption{}
 \end{figure}
 
 

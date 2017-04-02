@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+
+\usepackage{pdfpages}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\usepackage{algpseudocode}
+\algnewcommand{\LineComment}[1]{\State \(\triangleright\) #1}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand\headrule{}
+\fancyhead[L]{Gregor Bankhamer 1220843 Wolfgang Kremser 1222223}
+\newcommand{\RN}[1]{%
+  \textup{\uppercase\expandafter{\romannumeral#1}}%
+}
+
+\DeclareMathOperator{\ggT}{ggT}
+
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\section*{Exercise 1}
+
+Let $X_i$ be a random variable that denotes the result of the $i$-th roll, for $i=1,2,3...10$. Since $X_i$ is distributed uniformly over $1,2,3,4,5,6$ it follows that 
+\begin{align*}
+	E[X_i] &= \frac{1}{6}\cdot 1 + \frac{1}{6}\cdot 2 + ... \frac{1}{6}\cdot 6 = \frac{1}{6}\cdot \frac{6 \cdot 7}{2} = \frac{7}{2} \text{\qquad and} \\
+	Var[X_i] &= E[X_i^2] - E[X_i]^2 = \frac{1}{6}(1^2 + 2^2 + ... + 6^2) - \left( \frac{7}{2} \right)^2 = \frac{1}{6} \cdot \frac{6 \cdot 7 \cdot 13}{6} - \frac{49}{4} \\
+	&= \frac{91}{6} - \frac{49}{4} = \frac{182 - 147}{12} = \frac{35}{12}
+\end{align*}
+Now let $X$ be a random variable that denotes sum of these 10 independent dice rolls, therefore $X = \sum X_i$. Since the $X_i$ are i.i.d it follows
+\begin{equation*}                   
+	Var(X) = Var(\sum_{i=1}^{10} X_i) = 10 \cdot Var(X_i) = 10 \cdot \frac{35}{12} = \frac{175}{6}
+\end{equation*}                         
+Now we use Chebychev's inequality for $k=10$ which yields
+\begin{equation*}
+	Pr[|X - \mu| \geq 10] \leq \frac{Var(X)}{100} = \frac{175}{600} = \frac{7}{24} \approx 0.292
+\end{equation*}
+
+\section*{Exercise 2}
+Consider the function $f(x_1,x_2,x_3,x_4)$ with $f: \{0,1\}^4 \rightarrow \{0,1\}$. \\
+Therefore we have $2^4$ possible inputs $(x_1,x_2,x_3,x_4)$ that each are mapped to either $0$ or $1$. \\
+Changing these image values between 0 and 1 results into creating different functions. As we have again 2 possible image values we get
+\begin{equation*}
+	2^{2^4} = 2^{16} = 65,536
+\end{equation*}
+possible functions. Generalizing this result to functions  $f: \{0,1\}^n \rightarrow \{0,1\}$ yields
+\begin{equation*}
+	2^{2^n}
+\end{equation*}                                                                                                                                                                    
+The problem is that the search space for the real functions is very big. Simply brute-forcing all or even most possible functions for finding an optimal one is too time consuming.
+
+\section*{Exercise 3}
+Let $S,h,f,S|_x, \mathcal{D},m $ be defined as in the specification. Then
+\begin{align*}
+	E_{S|_x \sim \mathcal{D}^m}[L_S(h)] &=E_{S|_x \sim \mathcal{D}^m} \left[ \frac{1}{m} \sum_{i=1}^m 1_{h(x_i) \neq f(x_i)} \right] \\
+	&\overset{\text{lin.}}{=} \frac{1}{m} \sum_{i=1}^m E_{S|_x \sim \mathcal{D}^m} \left[ 1_{h(x_i) \neq f(x_i)}\right] \\
+	&\overset{\text{i.i.d}}{=}\frac{1}{m} \sum_{i=1}^m E_{x \sim \mathcal{D}} \left[ 1_{h(x) \neq f(x)}\right] \\
+	&=  \frac{1}{m} \cdot m \cdot  E_{x \sim \mathcal{D}} \left[ 1_{h(x) \neq f(x)}\right] =  E_{x \sim \mathcal{D}} \left[ 1_{h(x) \neq f(x)}\right] \overset{\text{Def. 1.1}}{=} L_{\mathcal{D},f}(h)
+\end{align*}
+
+\end{document}

@@ -117,5 +117,14 @@ when inserting above application of Markov's inequality this \textit{implies}
 	\forall \delta> 0 :\exists m (\epsilon, \delta) :\forall m \geq m( \epsilon, \delta ) : P[L_D(A(S)) \geq \epsilon] \leq \delta
 \end{align*}
 when "converting" the arbitrary fixing of $\epsilon,D,A,L_D$ into all-quantifiers we get the desired statement of (1).
+\subsection*{(2) $\rightarrow$ (1)}
+Because $0 \leq L_D(A(S)) \leq 1$  and  $0 \leq P_{S~D^m}[L_D(A(S)) \leq \epsilon]$<1\\
+\begin{align*}
+	E_{S~D^m}[L_D(A(S))] &\leq P_{S~D^m}[L_D(A(S))\geq \epsilon]* L_D(A(S))\\
+	&+ P_{S~D^m}[L_D(A(S))<\epsilon] * L_D(A(S))
+\end{align*}
+$= \delta * 1 + \epsilon * 1 = 2 * max\{\delta, \epsilon\}$\\
+$\forall m \geq m(2 * max \{ \delta, \epsilon \}), E_{S~D^m(L_D(A(S))} \leq 2 * max\{\delta, \epsilon\}$\\
+$\lim_{n \rightarrow \infty} E_{S~D^m}(L_D(A(S))) = 0$
 
 \end{document}

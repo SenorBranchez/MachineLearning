@@ -27,43 +27,66 @@
 
 \begin{document}
 
-\section*{Exercise 1}
-
-Let $X_i$ be a random variable that denotes the result of the $i$-th roll, for $i=1,2,3...10$. Since $X_i$ is distributed uniformly over $1,2,3,4,5,6$ it follows that 
+\section*{Excercise 4}
+Assume that $H$ is agnostic PAC learnable and consider an arbitrary distribution $D$ over $X \times Y$. \\\\
+Furthermore assume realizablity, i.e for $(x,y) \sim D$ there exist functions $f$ and $h^* \in H$ such that $P[f(x) = y] = 1 $. \\\\
+Consider $L_D(h)$, defined as follows for any arbitrary $h \in H$
 \begin{align*}
-	E[X_i] &= \frac{1}{6}\cdot 1 + \frac{1}{6}\cdot 2 + ... \frac{1}{6}\cdot 6 = \frac{1}{6}\cdot \frac{6 \cdot 7}{2} = \frac{7}{2} \text{\qquad and} \\
-	Var[X_i] &= E[X_i^2] - E[X_i]^2 = \frac{1}{6}(1^2 + 2^2 + ... + 6^2) - \left( \frac{7}{2} \right)^2 = \frac{1}{6} \cdot \frac{6 \cdot 7 \cdot 13}{6} - \frac{49}{4} \\
-	&= \frac{91}{6} - \frac{49}{4} = \frac{182 - 147}{12} = \frac{35}{12}
+	L_D(h) = P_{(x,y) \sim D}[h(x) \neq y] &\overset{real.}{=}  P_{(x,y) \sim D}[h(x) \neq f(x)] \\
+	&\overset{real.}{=}  P_{x \sim D|x}[h(x) \neq f(x)]  = L_{D|x,f}(h)
 \end{align*}
-Now let $X$ be a random variable that denotes sum of these 10 independent dice rolls, therefore $X = \sum X_i$. Since the $X_i$ are i.i.d it follows
-\begin{equation*}
-	Var(X) = Var \left( \sum_{i=1}^{10} X_i \right) \overset{\text{i.i.d}}{=} 10 \cdot Var(X_i) = 10 \cdot \frac{35}{12} = \frac{175}{6}
-\end{equation*}
-Now we use Chebychev's inequality for $a=10$ which yields
-\begin{equation*}
-	Pr[|X - \mu| \geq 10] \leq \frac{Var(X)}{100} = \frac{175}{600} = \frac{7}{24} \approx 0.292
-\end{equation*}
-
-\section*{Exercise 2}
-Consider the function $f(x_1,x_2,x_3,x_4)$ with $f: \{0,1\}^4 \rightarrow \{0,1\}$. \\
-Therefore we have $2^4$ possible inputs $(x_1,x_2,x_3,x_4)$ that each are mapped to either $0$ or $1$. \\
-Changing these image values between 0 and 1 results into creating different functions. As we have again 2 possible image values we get
-\begin{equation*}
-	2^{\left( 2^4 \right)} = 2^{16} = 65,536
-\end{equation*}
-possible functions. Generalizing this result to functions  $f: \{0,1\}^n \rightarrow \{0,1\}$ yields
-\begin{equation*}
-	2^{\left( 2^n \right)}
-\end{equation*}
-The problem is that the search space for the optimal function is very big. Simply brute-forcing all or even most possible functions for finding an optimal one is too time consuming. \\Also there are a lot of functions that produce the same results as the labeling function on the training set while causing error when exposed to general data.
-
-\section*{Exercise 3}
-Let $S,h,f,S|_x, \mathcal{D},m $ be defined as in the specification. Then
+Since the $y$ under realizability remain the same for each $x$ it is enough to consider $D|x$ together with a labeling function $f$. Also since realizability it follows that $h^* \in H$ and therefore $L_D(h*) = L_{D|x,f}(h*) = 0$\\\\
+Now since we assume agnostic PAC learnability: There must be an algorithm $A$ and $m(\delta,\epsilon)$ such that with probability $1-\delta$ for every $m \geq m(\delta,\epsilon)$ holds 
 \begin{align*}
-	E_{S|_x \sim \mathcal{D}^m}[L_S(h)] &=E_{S|_x \sim \mathcal{D}^m} \left[ \frac{1}{m} \sum_{i=1}^m 1_{h(x_i) \neq f(x_i)} \right] \\
-	&\overset{\text{lin.}}{=} \frac{1}{m} \sum_{i=1}^m E_{S|_x \sim \mathcal{D}^m} \left[ 1_{h(x_i) \neq f(x_i)}\right] \\
-	&\overset{\text{i.i.d}}{=}\frac{1}{m} \sum_{i=1}^m E_{x \sim \mathcal{D}} \left[ 1_{h(x) \neq f(x)}\right] \\
-	&=  \frac{1}{m} \cdot m \cdot  E_{x \sim \mathcal{D}} \left[ 1_{h(x) \neq f(x)}\right] =  E_{x \sim \mathcal{D}} \left[ 1_{h(x) \neq f(x)}\right] \overset{\text{Def. 1.1}}{=} L_{\mathcal{D},f}(h)
+	L_{D|x,f}(h)= L_D(h) &\leq min_{h' \in H}(L_D(h')) + \epsilon \\
+	&\overset{h^* \in H}{\leq}  L_D(h^*) + \epsilon = 0 + \epsilon =  \epsilon
 \end{align*}
-
+This means that $D|x$ is PAC learnable using algorithm $A$ and $m\geq m(\delta,\epsilon)$ of the agnostic PAC learner.
+\section*{Excercise 5}
+*** CAREFULLL *** ISNT INFIMUM INSTEAD MAXIMUM RELEVANT?
+Consider the following ERM algorithm $A$: Given sample set $S$ it outputs $A(S)=h_{r_s}$ such that $r_s = \max_{(x,y) \in S, y=1}(|x|)$. \\\\
+Let $H_B=\{h_r: L_{D,f}(h_r) > \epsilon\}$ for some $0 < \epsilon < 1$. Be the set of all possible bad hypothesis. \\
+Furthermore for every $S$ let $h_{r_s}$ denote the hypothesis output by $A(S)$ and since realizability holds, let denote $h_{r*} \in H$ denote an optimal hypothesis. Then consider the set of bad samples $S_B$
+\begin{align*}
+	S_B &= \{S|x : h_{r_s} \in H_B\} \\
+	&= \{S|x: L_{D,f}(h_{r_s}) > \epsilon\} \\
+	&= \{S|x: P[h_{r_s}(x) \neq h_{r*}(x)] > \epsilon\} \\
+	&= \{S|x: P[h_{r_s}(x) = 1 \land h_{r*}(x) = 0] +  P[h_{r_s}(x) = 0 \land h_{r*}(x) = 1] > \epsilon \}\\
+	&= \{S|x: P[r* < |x| \leq r_s] + P[r_s < |x| \leq r*] > \epsilon \}
+\end{align*}
+However since $r_s$ is chosen such that it is the minimum radius containing all samples with $y=1$. It follows that $r_s \leq r*$. Otherwise $h_r*$ would be making at least one mistake. Therefore $P[r* < |x| \leq r_s] = 0$ and
+\begin{align*}
+	S_B &= \{S|x:  P[r_s < |x| \leq r*] > \epsilon \}
+\end{align*}
+Now we consider two cases\\
+\textbf{1.Case: }$S_B$ has $r_m = \max_{S \in S_B} (r_s)$.\\
+Clearly since $r_m$ results from the set $S_B$ it follows that $Pr[r_m < |x| \leq r^*] > \epsilon$. Additionally since making the radius smaller can only generate a larger or equal error we can express $S_B$ as follows
+\begin{equation*}
+	S_B = \{S|x: r_s \leq r_m\}
+\end{equation*}
+And finally we can compute
+\begin{align*}
+	D^m(S_B) &= D^m \{S|x : r_s \leq r_m\}\\
+	&= D^m \{S|x : \forall x \in S|x: (|x| > r^*) \lor (|x| \leq r_m)\} \\
+	&\overset{i.i.d}{=} \prod_{i=1}^{m} D^m\{x: \neg (r_m < |x|\leq r*)\} \\
+	&< \prod_{i=1}^{m} (1- P[r_m < |x| \leq r*]) \leq (1- \epsilon)^m < e^{-\epsilon m}
+\end{align*}
+\textbf{2.Case:} $S_B$ only has an infimum $r_i = \inf_{S \in S_B}(r_s)$.\\
+Since $\forall S \in S_B:  P[r_s < |x| \leq r*] > \epsilon$ it follows $P[r_i \leq |x| \leq r*] > \epsilon$. Similar we can express $S_B$ now as 
+\begin{equation*}
+	S_B = \{S|x: r_s <r_i\}
+\end{equation*}
+And compute
+\begin{align*}
+	D^m(S_B) &= D^m \{S|x : r_s < r_i\}\\
+	&= D^m \{S|x : \forall x \in S|x: (|x| > r^*) \lor (|x| < r_i)\} \\
+	&\overset{i.i.d}{=} \prod_{i=1}^{m} D^m\{x: \neg (r_i \leq |x|\leq r*)\} \\
+	&< \prod_{i=1}^{m} (1- P[r_i \leq |x| \leq r*]) \leq (1- \epsilon)^m < e^{-\epsilon m}
+\end{align*}
+\textbf{Both cases}\\
+For $e^{-\epsilon m} \leq \delta$ we need
+\begin{equation*}
+	m \geq \frac{\log(1/\delta)}{\epsilon}
+\end{equation*}
+Therefore we have given an algorithm $A$ and a funtion $m_H(\epsilon,\delta)$ such that $H$ is PAC learnable returning a hypothesis that w.p $1-\delta$ holds $L_D,f(h) \leq \epsilon$.
 \end{document}

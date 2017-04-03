@@ -35,11 +35,11 @@ $L_D(h) \in 0+ \epsilon = \epsilon$
 
 \section*{Exercise 5}
 
-Under the assumption of realizability, the error we can make is bound between the tightest circle that encloses all equally labeled samples and the circle which is just before the first differently labeled sample. The annulus of these circles is colored red in the figure. Somewhere on that annulus lies the circle which represents the true labeling function $f$.
+We assume realizability, therefore we can denote the true labeling function $f$ with radius $r_f$
 \\ \\
-Let $f$ have radius $r_f$. We chose a circle $h$ which represents a hypothesis with the smallest radius $r_h$ such that $P(r_h \leq ||x|| \leq r_f) < \epsilon$. Now, let A be all radii between $r_h$ and $r_s$, i.e $A := \{x : r_h \leq ||x|| \leq r_s\}$. By definition of $r_h$, $P(x \in A) \geq \epsilon$.
+We want to bound the generalization error by $\epsilon$. We draw a circle $h$ with radius $r_h$ such that $r_h = inf\{r' : P(r' \leq ||x|| \leq r_f) < \epsilon\}$. The annulus (blue) of $f$ and $h$ represents the good hypotheses with error less than $\epsilon$. For a bad hypothesis with an error larger than $\epsilon$ to occur, all $m$ samples must fall within the inner circle (red). They do so with probability $(1-\epsilon)^m$.
 \\ \\
-Therefore, the chance to not make an error greater than $\epsilon$ is $P(x \notin A) \le (1 - \epsilon)$. For $m$ samples we have the chance of $(1-\epsilon)^m \leq e^{-m\epsilon} \geq \delta$, leading to $m \geq \frac{1}{\epsilon} log(\frac{1}{\delta})$
+Therefore $P(L_{D,f} > \epsilon) \leq (1-\epsilon)^m \leq e^{-m\epsilon} \Leftrightarrow m > \frac{1}{\epsilon} log(\frac{1}{\delta})$ for $\delta > 0$
 
 
 \begin{figure}
